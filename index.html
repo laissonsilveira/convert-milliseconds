@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Convert Milliseconds</title>
+</head>
+<style>
+    /*
+Basic input element using psuedo classes
+*/
+    html {
+        font-family: 'Lora', sans-serif;
+        /*width: 100%;*/
+    }
+
+    body {
+        margin: 5% auto 0 auto;
+        width: 90%;
+        max-width: 1125px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 2.5%;
+    }
+
+    input,
+    span,
+    label,
+    textarea {
+        font-family: 'Ubuntu', sans-serif;
+        display: block;
+        margin: 10px;
+        padding: 5px;
+        border: none;
+        font-size: 22px;
+    }
+
+    textarea:focus,
+    input:focus {
+        outline: 0;
+    }
+
+    input.title-convert,
+    textarea.title-convert {
+        font-size: 48px;
+        font-weight: 300;
+        border-radius: 2px;
+        margin: 0;
+        border: none;
+        width: 80%;
+        background: rgba(0, 0, 0, 0);
+        transition: padding-top 0.2s ease, margin-top 0.2s ease;
+        overflow-x: hidden; /* Hack to make "rows" attribute apply in Firefox. */
+    }
+
+    /* Underline and Placeholder */
+
+    input.title-convert + label,
+    textarea.title-convert + label {
+        display: block;
+        position: relative;
+        white-space: nowrap;
+        padding: 0;
+        margin: 0;
+        width: 10%;
+        border-top: 1px solid red;
+        -webkit-transition: width 0.4s ease;
+        transition: width 0.4s ease;
+        height: 0px;
+    }
+
+    input.title-convert:focus + label,
+    textarea.title-convert:focus + label {
+        width: 80%;
+    }
+
+    input.title-convert:focus,
+    input.title-convert:valid {
+        padding-top: 35px;
+    }
+
+    textarea.title-convert:valid,
+    textarea.title-convert:focus {
+        margin-top: 35px;
+    }
+
+    input.title-convert:focus + label > span,
+    input.title-convert:valid + label > span {
+        top: -100px;
+        font-size: 22px;
+        color: #333;
+    }
+
+    textarea.title-convert:focus + label > span,
+    textarea.title-convert:valid + label > span {
+        top: -150px;
+        font-size: 22px;
+        color: #333;
+    }
+
+    input.title-convert:valid + label,
+    textarea.title-convert:valid + label {
+        border-color: green;
+    }
+
+    input.title-convert:invalid,
+    textarea.title-convert:invalid {
+        box-shadow: none;
+    }
+
+    input.title-convert + label > span,
+    textarea.title-convert + label > span {
+        font-weight: 300;
+        margin: 0;
+        position: absolute;
+        color: #8F8F8F;
+        font-size: 48px;
+        top: -66px;
+        left: 0px;
+        z-index: -1;
+        -webkit-transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+        transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+    }
+
+    input[type="submit"] {
+        -webkit-transition: opacity 0.2s ease, background 0.2s ease;
+        transition: opacity 0.2s ease, background 0.2s ease;
+        display: block;
+        opacity: 0;
+        margin: 10px 0 0 0;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background: #EEE;
+    }
+
+    input[type="submit"]:active {
+        background: #999;
+    }
+
+    input.title-convert:valid ~ input[type="submit"], textarea.title-convert:valid ~ input[type="submit"] {
+        -webkit-animation: appear 1s forwards;
+        animation: appear 1s forwards;
+    }
+
+    input.title-convert:invalid ~ input[type="submit"], textarea.title-convert:invalid ~ input[type="submit"] {
+        display: none;
+    }
+
+    @-webkit-keyframes appear {
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes appear {
+        100% {
+            opacity: 1;
+        }
+    }
+
+</style>
+<script>
+    window.resizeTo(700,400);
+    function msToHMS(ms) {
+        // 1- Convert to seconds:
+        let seconds = ms / 1000;
+        // 2- Extract hours:
+        let hours = parseInt((seconds / 3600).toFixed(15)); // 3,600 seconds in 1 hour
+        seconds = seconds % 3600; // seconds remaining after extracting hours
+        // 3- Extract minutes:
+        let minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
+        // 4- Keep only seconds not extracted to minutes:
+        seconds = seconds % 60;
+        const result = `${hours} hr, ${minutes} min, ${seconds} sec`;
+        console.log(result);
+        document.querySelector('#result').value = result;
+    }
+</script>
+<body>
+<h1>Converter Milissegundos</h1>
+    <form>
+        <input type="number" name="ms" class="title-convert" id="ms" required autocomplete="off"
+               onchange="msToHMS(document.querySelector('#ms').value)" autofocus/>
+        <label for="ms"><span>Valor em milissegundos</span></label>
+        <input type="text" name="result" class="title-convert" id="result" disabled title="Resultado"/>
+    </form>
+</body>
+</html>
