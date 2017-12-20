@@ -6,6 +6,8 @@ Converter milissegundos para Hora/Minuto/Segundos
 
 # Abrir app #
 
-    google-chrome --app=index.html --disable-gpu
+    LINUX: google-chrome --app=index.html --disable-gpu
+    MAC: /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --kiosk index.html --disable-gpu
+
     firefox etc
     safari etc
